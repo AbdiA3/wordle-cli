@@ -61,11 +61,16 @@ def verify(random_word, user_guess):
 
   status = [None for i in range(5)]
 
+  visited_letters = []
+
+
   for idx in range(5):
-    if user_guess[idx] == random_word[idx]:
+    if user_guess[idx] not in visited_letters and user_guess[idx] == random_word[idx]:
       status[idx] = 1
-    elif user_guess[idx] in random_word:
+      visited_letters.append(user_guess[idx])
+    elif user_guess[idx] not in visited_letters and user_guess[idx] in random_word:
       status[idx] = 0
+      visited_letters.append(user_guess[idx])
     else:
       status[idx] = -1
 
