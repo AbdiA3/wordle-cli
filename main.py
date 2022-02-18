@@ -136,7 +136,7 @@ But the catch is you only get {typer.style(' 6 ', fg=typer.colors.WHITE, bg=type
 
 
   random_word = random_word_picker().upper()
-  typer.secho(random_word, fg=typer.colors.MAGENTA)
+  # typer.secho(random_word, fg=typer.colors.MAGENTA)
 
   for rnd in range(6):
     prompt_text = f'{typer.style(" #"+str(rnd+1)+" ", bg=typer.colors.MAGENTA, fg=typer.colors.WHITE, bold=True)} Guess the word'
