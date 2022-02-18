@@ -45,7 +45,31 @@ def draw_result(validation_status, user_guess):
 
 
 def validate(random_word, user_guess):
-  ...
+  '''
+  Validate the user guessed word with the random word picked based on the rule.
+
+    - if the current letter of the user guessed word is the same as the letter at 
+      the same position in the random word picked, then status of that position is 1
+    
+    - if the current letter of the user guessed word is not the same as the letter at 
+      the same position in the random word picked, but the letter exists in the random 
+      word picked, then status of that position is 0
+    
+    - if the current letter of the user guessed word is not in the random word picked,
+      then status of that position is -1
+  '''
+
+  status = [None for i in range(5)]
+
+  for idx in range(5):
+    if user_guess[idx] == random_word[idx]:
+      status[idx] = 1
+    elif user_guess[idx] in random_word:
+      status[idx] = 0
+    else:
+      status[idx] = -1
+
+  return status
 
 
 @app.command()
