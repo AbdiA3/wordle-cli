@@ -74,7 +74,31 @@ def validate(random_word, user_guess):
 
 @app.command()
 def main():
-  ...
+  '''
+  The main function that will actually run the entire game.
+  '''
+
+  main_text = f'''
+{typer.style('A CLI version of Wordle.', fg=typer.colors.GREEN, bold=True)} 
+{typer.style("I picked the random word, so let's go!!", fg=typer.colors.WHITE, bg=typer.colors.MAGENTA, bold=True)}
+  '''
+  typer.echo(main_text)
+
+
+  random_word = random_word_picker().upper()
+  typer.secho(random_word, fg=typer.colors.MAGENTA)
+
+  for rnd in range(6):
+    prompt_text = f'{typer.style(" "+str(rnd+1)+" ", bg=typer.colors.MAGENTA, fg=typer.colors.WHITE, bold=True)} Guess the word'
+    user_guess = typer.prompt(prompt_text).upper()
+    validation_status = validate(random_word, user_guess)
+    status_grid = draw_result(validation_status, user_guess)
+
+    typer.echo(status_grid)
+
+
+
+
 
 
 if __name__ == '__main__':
