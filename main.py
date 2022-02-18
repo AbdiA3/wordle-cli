@@ -61,16 +61,16 @@ def verify(random_word, user_guess):
 
   status = [None for i in range(5)]
 
-  visited_letters = []
+  visited_letters = { letter: random_word.count(letter) for letter in random_word }
 
 
   for idx in range(5):
-    if user_guess[idx] not in visited_letters and user_guess[idx] == random_word[idx]:
+    if user_guess[idx] == random_word[idx] and visited_letters[user_guess[idx]] > 0:
       status[idx] = 1
-      visited_letters.append(user_guess[idx])
-    elif user_guess[idx] not in visited_letters and user_guess[idx] in random_word:
+      visited_letters[user_guess[idx]] -= 1
+    elif user_guess[idx] in random_word and visited_letters[user_guess[idx]] > 0:
       status[idx] = 0
-      visited_letters.append(user_guess[idx])
+      visited_letters[user_guess[idx]] -= 1
     else:
       status[idx] = -1
 
@@ -135,29 +135,51 @@ The rules are very simple.
 But the catch is you only get {typer.style(' 6 ', fg=typer.colors.WHITE, bg=typer.colors.RED, bold=True)} shots to get it right.
 '''
 
-  main_text += f'{typer.style("I picked the random word. Tell your guess", fg=typer.colors.MAGENTA, bold=True)}\n'
+  main_text += f'{typer.style("I picked the random word. Enter your guess:", fg=typer.colors.MAGENTA, bold=True)}\n'
 
   typer.echo(main_text)
 
 
-  random_word = random_word_picker().upper()
-  # typer.secho(random_word, fg=typer.colors.MAGENTA)
+  while True:
+    random_word = random_word_picker().upper()
 
-  for rnd in range(6):
-    prompt_text = f'{typer.style(" #"+str(rnd+1)+" ", bg=typer.colors.MAGENTA, fg=typer.colors.WHITE, bold=True)} Guess the word'
-    user_guess = typer.prompt(prompt_text).upper()
+    flag = False
 
-    while not validate(user_guess)[0]:
-      errors = validate(user_guess)[1]
-      for error in errors:
-        typer.secho(error, bg=typer.colors.RED, fg=typer.colors.WHITE, bold=True)
-
+    for rnd in range(6):
+      prompt_text = f'{typer.style(" #"+str(rnd+1)+" ", bg=typer.colors.MAGENTA, fg=typer.colors.WHITE, bold=True)} Guess the word'
       user_guess = typer.prompt(prompt_text).upper()
 
-    validation_status = verify(random_word, user_guess)
-    status_grid = draw_result(validation_status, user_guess)
+      while not validate(user_guess)[0]:
+        errors = validate(user_guess)[1]
 
-    typer.echo(status_grid)
+        for error in errors:
+          typer.secho(error, bg=typer.colors.RED, fg=typer.colors.WHITE, bold=True)
+
+        user_guess = typer.prompt(prompt_text).upper()
+
+      validation_status = verify(random_word, user_guess)
+      status_grid = draw_result(validation_status, user_guess)
+      typer.echo(status_grid)
+
+      if(validation_status.count(1) == 5):
+        typer.secho(f'You got it!! {typer.style(user_guess, bg=typer.colors.GREEN, fg=typer.colors.WHITE, bold=True)} was the word.')
+        flag = True
+        break 
+
+    if not flag:
+      typer.secho(f"Shoot, you didn't get it. The word was {typer.style(' '+random_word+' ', bg=typer.colors.RED, fg=typer.colors.WHITE, bold=True)}.")
+
+    typer.secho('_'*64+'\n', fg=typer.colors.GREEN, bold=True) 
+    play_again_prompt_text = 'You got it now, but do you think you can do it again?'
+    if not flag:
+      play_again_prompt_text = 'Come on, don\'t give up easily. Give it another shot.'
+
+    play_again_prompt_text += '\nEnter "Y" to play again, or any other key to exit.'
+    play_again = typer.prompt(play_again_prompt_text)
+    typer.secho('_'*64+'\n', fg=typer.colors.GREEN, bold=True) 
+
+    if play_again.lower() != 'y':
+      break
 
 
 if __name__ == '__main__':
