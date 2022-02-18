@@ -17,3 +17,10 @@ If you want to see the rules you can add `--rules` flag.
 ```sh
 python main.py --rules # UNIX: python3 main.py --rules
 ```
+
+When installing Typer it will automatically install the following packages.
+```sh
+click
+colorama
+typer
+```
