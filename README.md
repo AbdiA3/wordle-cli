@@ -9,11 +9,11 @@ To get started:
 ```sh
 git clone https://github.com/AbdiA3/wordle-cli.git
 cd wordle-cli
-pip install -r requirements.txt
+pip install typer # UNIX: pip3 install typer 
 python main.py # UNIX: python3 main.py
 ```
 
 If you want to see the rules you can add `--rules` flag.
 ```sh
-python main.py --rules
+python main.py --rules # UNIX: python3 main.py --rules
 ```
