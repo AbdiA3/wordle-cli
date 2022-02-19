@@ -162,7 +162,7 @@ But the catch is you only get {typer.style(' 6 ', fg=typer.colors.WHITE, bg=type
       typer.echo(status_grid)
 
       if(validation_status.count(1) == 5):
-        typer.secho(f'You got it!! {typer.style(user_guess, bg=typer.colors.GREEN, fg=typer.colors.WHITE, bold=True)} was the word.')
+        typer.secho(f'You got it!! {typer.style(" "+user_guess+" ", bg=typer.colors.GREEN, fg=typer.colors.WHITE, bold=True)} was the word.')
         flag = True
         break 
 
