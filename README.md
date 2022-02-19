@@ -5,7 +5,7 @@
 A CLI version of Wordle. Made using [Typer](https://typer.tiangolo.com/).
 
 ### Screenshots
-![Screenshot 1](./screenshots/img_1.png)
+![Screenshot 1](./screenshots/screenshot_1.png)
 
 To get started:
 
