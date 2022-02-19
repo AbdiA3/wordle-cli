@@ -127,7 +127,7 @@ The rules are very simple.
     - If I show you a gray box, then the letter at 
       that position is not in the word
     - If I show you a yellow box, then the letter 
-      at that position is in the word, but different 
+      at that position is in the word, but in a different 
       position
     - If I show you a green box, then the letter at 
       that position is in the word and at the same position
@@ -135,7 +135,7 @@ The rules are very simple.
 But the catch is you only get {typer.style(' 6 ', fg=typer.colors.WHITE, bg=typer.colors.RED, bold=True)} shots to get it right.
 '''
 
-  main_text += f'{typer.style("I picked the random word. Enter your guess:", fg=typer.colors.MAGENTA, bold=True)}\n'
+  main_text += f'{typer.style("I have picked a random word. Can you guess what it is?", fg=typer.colors.MAGENTA, bold=True)}\n'
 
   typer.echo(main_text)
 
@@ -146,7 +146,7 @@ But the catch is you only get {typer.style(' 6 ', fg=typer.colors.WHITE, bg=type
     flag = False
 
     for rnd in range(6):
-      prompt_text = f'{typer.style(" #"+str(rnd+1)+" ", bg=typer.colors.MAGENTA, fg=typer.colors.WHITE, bold=True)} Guess the word'
+      prompt_text = f'{typer.style(" #"+str(rnd+1)+" ", bg=typer.colors.MAGENTA, fg=typer.colors.WHITE, bold=True)} Type your guess'
       user_guess = typer.prompt(prompt_text).upper()
 
       while not validate(user_guess)[0]:
